@@ -1,0 +1,419 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Objects/Fon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Resurses/Sprites/Player/PLROneCH2.png" type="Texture" id=2]
+[ext_resource path="res://Resurses/Sprites/Player/PLROneCH1.png" type="Texture" id=3]
+[ext_resource path="res://Resurses/Sprites/Player/PLRTwo.png" type="Texture" id=4]
+[ext_resource path="res://Resurses/Sprites/Player/NNoga.png" type="Texture" id=5]
+[ext_resource path="res://Resurses/Sprites/Player/NPlayer.png" type="Texture" id=6]
+[ext_resource path="res://Resurses/Sprites/AKM.png" type="Texture" id=7]
+[ext_resource path="res://Resurses/Sprites/Zombie/Stiralka.png" type="Texture" id=8]
+[ext_resource path="res://Resurses/Sprites/Zombie/Zombie.png" type="Texture" id=9]
+[ext_resource path="res://Resurses/Sprites/Zombie/ZNoga.png" type="Texture" id=10]
+[ext_resource path="res://Resurses/Sprites/Zombie/ZRuka.png" type="Texture" id=11]
+[ext_resource path="res://Resurses/UserInterfase/UI-Sprites/LogoName.png" type="Texture" id=12]
+[ext_resource path="res://Resurses/UserInterfase/Defult_theme.tres" type="Theme" id=13]
+[ext_resource path="res://Resurses/UserInterfase/UI-Sprites/Play.png" type="Texture" id=14]
+[ext_resource path="res://Resurses/UserInterfase/UI-Sprites/Kubok.png" type="Texture" id=15]
+[ext_resource path="res://Resurses/Music/Run On Zombies.mp3" type="AudioStream" id=17]
+[ext_resource path="res://Resurses/UserInterfase/UI-Sprites/MusicOrSound.png" type="Texture" id=20]
+[ext_resource path="res://Resurses/UserInterfase/UI-Sprites/MusicOrSoundIsStop.png" type="Texture" id=21]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Node2D
+
+
+func _ready():
+	$AnimationPlayer.play(\"Menu\")
+"
+
+[sub_resource type="Animation" id=5]
+resource_name = "Menu"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player/Tulob:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 106, 61 ), Vector2( 106, 71 ), Vector2( 106, 61 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Zombie/TUlZom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 38, 7 ), Vector2( 38, 17 ), Vector2( 38, 7 ) ]
+}
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+
+func _ready():
+	if Gl.player_name == null:
+		$SetPlayerName.show()
+	else:
+		show_ui()
+
+func _process(delta):
+	$Kubok/MaxScore.text = str(Gl.maxKillsZom)
+
+func show_ui():
+	$PlayButtons.show()
+	$Kubok.show()
+	$Kubok/PlayerName.text = Gl.player_name
+
+func hide_ui():
+	$PlayButtons.hide()
+	$Kubok.hide()
+
+func _on_Play_pressed():
+	CS.ChangeScene(\"Game\")
+	$PlayButtons/Play/Play.hide()
+
+
+func _on_Play_mouse_entered():
+	$PlayButtons/Play/Play.show()
+
+
+func _on_Play_mouse_exited():
+	$PlayButtons/Play/Play.hide()
+
+
+func _on_SubmitPlayerName_pressed():
+	if $SetPlayerName/SetPlayer.text != \"\":
+		$SetPlayerName.hide()
+		Gl.player_name = $SetPlayerName/SetPlayer.text
+		show_ui()
+"
+
+[sub_resource type="GDScript" id=17]
+script/source = "extends TextureButton
+
+export var MusicPath:NodePath
+export var texturePlaying:Texture
+export var textureStopPlaying:Texture
+
+var Music:AudioStreamPlayer
+
+var musicOn = true setget MusicOnOff
+
+func _ready():
+	Music = get_node(MusicPath)
+
+func _process(delta):
+	if musicOn:
+		texture_normal = texturePlaying
+		$MusicB.text = \"Music On\"
+	else:
+		texture_normal = textureStopPlaying
+		$MusicB.text = \"Music Off\"
+
+func _on_MusicB_pressed():
+	self.musicOn = !musicOn
+
+func MusicOnOff(v):
+	musicOn = v
+	Music.stream_paused = !v
+	print(v)
+	print(musicOn)
+	print(Music.stream_paused)
+
+
+func _on_MusicB_mouse_entered():
+	$MusicB.show()
+
+
+func _on_MusicB_mouse_exited():
+	$MusicB.hide()
+"
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0745098, 0.0588235, 0.0588235, 0.415686 )
+
+[sub_resource type="Theme" id=3]
+Panel/styles/panel = SubResource( 2 )
+
+[node name="Menu" type="Node"]
+
+[node name="Objects" type="Node2D" parent="."]
+script = SubResource( 6 )
+
+[node name="Fon" parent="Objects" instance=ExtResource( 1 )]
+
+[node name="Player" type="Position2D" parent="Objects"]
+position = Vector2( 268, 91 )
+
+[node name="NNoga" type="Sprite" parent="Objects/Player"]
+position = Vector2( -48, 158 )
+texture = ExtResource( 5 )
+
+[node name="NNoga2" type="Sprite" parent="Objects/Player"]
+position = Vector2( 10, 159 )
+texture = ExtResource( 5 )
+
+[node name="Tulob" type="Position2D" parent="Objects/Player"]
+position = Vector2( 106, 69.4916 )
+
+[node name="NPlayer" type="Sprite" parent="Objects/Player/Tulob"]
+position = Vector2( -128, -35 )
+texture = ExtResource( 6 )
+
+[node name="PlrOneCh1" type="Sprite" parent="Objects/Player/Tulob"]
+position = Vector2( -196, 16 )
+texture = ExtResource( 3 )
+
+[node name="Akm" type="Sprite" parent="Objects/Player/Tulob"]
+position = Vector2( -108, 33 )
+texture = ExtResource( 7 )
+
+[node name="PlrOneCh2" type="Sprite" parent="Objects/Player/Tulob"]
+position = Vector2( -170, 44 )
+texture = ExtResource( 2 )
+
+[node name="PlrTwo" type="Sprite" parent="Objects/Player/Tulob"]
+position = Vector2( -66, 32 )
+texture = ExtResource( 4 )
+
+[node name="Zombie" type="Position2D" parent="Objects"]
+position = Vector2( 1053, 120 )
+
+[node name="Stiralka" type="Sprite" parent="Objects/Zombie"]
+position = Vector2( -28, 107 )
+texture = ExtResource( 8 )
+
+[node name="ZNoga" type="Sprite" parent="Objects/Zombie"]
+position = Vector2( -103, 156 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 10 )
+
+[node name="ZNoga2" type="Sprite" parent="Objects/Zombie"]
+position = Vector2( -182, 151 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 10 )
+
+[node name="TUlZom" type="Position2D" parent="Objects/Zombie"]
+position = Vector2( 38, 15.4916 )
+
+[node name="ZRuka" type="Sprite" parent="Objects/Zombie/TUlZom"]
+position = Vector2( -258, 58 )
+rotation = 2.14675
+texture = ExtResource( 11 )
+
+[node name="NZombie" type="Sprite" parent="Objects/Zombie/TUlZom"]
+position = Vector2( -162, 15 )
+rotation = -3.0264
+scale = Vector2( 1, -1 )
+texture = ExtResource( 9 )
+
+[node name="ZRuka2" type="Sprite" parent="Objects/Zombie/TUlZom"]
+position = Vector2( -87.9999, 84 )
+rotation = 1.45386
+texture = ExtResource( 11 )
+
+[node name="LogoName" type="Sprite" parent="Objects"]
+position = Vector2( 634, -145 )
+scale = Vector2( 0.821951, 0.821951 )
+texture = ExtResource( 12 )
+
+[node name="Camera2D" type="Camera2D" parent="Objects"]
+position = Vector2( 604, -5 )
+current = true
+zoom = Vector2( 0.9, 0.9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Objects"]
+anims/Menu = SubResource( 5 )
+
+[node name="GUIMenu" type="CanvasLayer" parent="."]
+
+[node name="UIMenu" type="Control" parent="GUIMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 13 )
+script = SubResource( 1 )
+
+[node name="MusicB" type="TextureButton" parent="GUIMenu/UIMenu"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -140.0
+margin_top = 13.0
+margin_right = -17.0
+margin_bottom = 136.0
+texture_normal = ExtResource( 20 )
+script = SubResource( 17 )
+MusicPath = NodePath("../../../Music")
+texturePlaying = ExtResource( 20 )
+textureStopPlaying = ExtResource( 21 )
+
+[node name="MusicB" type="Label" parent="GUIMenu/UIMenu/MusicB"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -69.5
+margin_top = -27.0
+margin_right = 69.5
+text = "Music On"
+align = 1
+valign = 2
+autowrap = true
+
+[node name="Version" type="Label" parent="GUIMenu/UIMenu"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -440.0
+margin_top = -27.0
+text = "0.1.2beta"
+align = 2
+valign = 2
+
+[node name="PlayButtons" type="Panel" parent="GUIMenu/UIMenu"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -223.0
+margin_top = -219.0
+margin_right = 224.0
+margin_bottom = -78.0
+
+[node name="Play" type="TextureButton" parent="GUIMenu/UIMenu/PlayButtons"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -141.0
+margin_top = -61.5
+margin_right = -18.0
+margin_bottom = 61.5
+texture_normal = ExtResource( 14 )
+
+[node name="Play" type="Label" parent="GUIMenu/UIMenu/PlayButtons/Play"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -26.5
+margin_top = -27.0
+margin_right = 26.5
+text = "Play"
+
+[node name="Kubok" type="Panel" parent="GUIMenu/UIMenu"]
+visible = false
+margin_right = 274.0
+margin_bottom = 124.0
+theme = SubResource( 3 )
+
+[node name="Kubok" type="TextureRect" parent="GUIMenu/UIMenu/Kubok"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -61.5
+margin_right = 123.0
+margin_bottom = 61.5
+texture = ExtResource( 15 )
+
+[node name="MaxScore" type="Label" parent="GUIMenu/UIMenu/Kubok"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -55.0
+margin_top = -29.0
+margin_right = 85.0
+text = "0"
+valign = 1
+
+[node name="MaxScoreID" type="Label" parent="GUIMenu/UIMenu/Kubok"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -197.0
+margin_top = -29.0
+margin_right = -57.0
+text = "Max Score:"
+align = 2
+valign = 1
+
+[node name="PlayerName" type="Label" parent="GUIMenu/UIMenu/Kubok"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -37.0
+margin_top = 2.0
+margin_right = 521.0
+margin_bottom = 29.0
+text = "Player Name"
+autowrap = true
+
+[node name="SetPlayerName" type="Panel" parent="GUIMenu/UIMenu"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -251.0
+margin_top = -247.0
+margin_right = 253.0
+margin_bottom = -58.0
+
+[node name="SetPlayer" type="LineEdit" parent="GUIMenu/UIMenu/SetPlayerName"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -229.0
+margin_top = -39.5
+margin_right = 239.0
+margin_bottom = 21.5
+
+[node name="SubmitPlayerName" type="Button" parent="GUIMenu/UIMenu/SetPlayerName"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -102.0
+margin_top = -62.0
+margin_right = 102.0
+margin_bottom = -18.0
+text = "Submit"
+
+[node name="Please" type="Label" parent="GUIMenu/UIMenu/SetPlayerName"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -171.0
+margin_top = 16.0
+margin_right = 172.0
+margin_bottom = 43.0
+text = "Please whrite a player name"
+align = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -14.726
+autoplay = true
+
+[connection signal="mouse_entered" from="GUIMenu/UIMenu/MusicB" to="GUIMenu/UIMenu/MusicB" method="_on_MusicB_mouse_entered"]
+[connection signal="mouse_exited" from="GUIMenu/UIMenu/MusicB" to="GUIMenu/UIMenu/MusicB" method="_on_MusicB_mouse_exited"]
+[connection signal="pressed" from="GUIMenu/UIMenu/MusicB" to="GUIMenu/UIMenu/MusicB" method="_on_MusicB_pressed"]
+[connection signal="mouse_entered" from="GUIMenu/UIMenu/PlayButtons/Play" to="GUIMenu/UIMenu" method="_on_Play_mouse_entered"]
+[connection signal="mouse_exited" from="GUIMenu/UIMenu/PlayButtons/Play" to="GUIMenu/UIMenu" method="_on_Play_mouse_exited"]
+[connection signal="pressed" from="GUIMenu/UIMenu/PlayButtons/Play" to="GUIMenu/UIMenu" method="_on_Play_pressed"]
+[connection signal="pressed" from="GUIMenu/UIMenu/SetPlayerName/SubmitPlayerName" to="GUIMenu/UIMenu" method="_on_SubmitPlayerName_pressed"]

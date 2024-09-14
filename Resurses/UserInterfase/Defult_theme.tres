@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=9 format=2]
+
+[ext_resource path="res://Resurses/UserInterfase/Shrifts/Defult_font.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0352941, 0.113725, 0.0784314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.12549, 0.529412, 0.341176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.121569, 0.580392, 0.368627, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.105882, 0.47451, 0.301961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.0627451, 0.266667, 0.172549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.144531, 0.144531, 0.144531, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.0745098, 0.0588235, 0.0588235, 1 )
+
+[resource]
+default_font = ExtResource( 1 )
+Button/colors/font_color = Color( 0.894118, 0.803922, 0.560784, 1 )
+Button/styles/disabled = SubResource( 1 )
+Button/styles/focus = SubResource( 2 )
+Button/styles/hover = SubResource( 3 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 5 )
+HBoxContainer/constants/separation = 100
+Label/colors/font_color = Color( 0.996078, 0.92549, 0.647059, 1 )
+LineEdit/colors/cursor_color = Color( 0.878906, 0.795037, 0.569916, 1 )
+LineEdit/colors/font_color = Color( 0.894118, 0.803922, 0.560784, 1 )
+LineEdit/styles/normal = SubResource( 7 )
+Panel/styles/panel = SubResource( 6 )

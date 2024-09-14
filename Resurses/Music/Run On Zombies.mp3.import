@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Run On Zombies.mp3-b481f5effe23ccd089218b8b2257ae2b.mp3str"
+
+[deps]
+
+source_file="res://Resurses/Music/Run On Zombies.mp3"
+dest_files=[ "res://.import/Run On Zombies.mp3-b481f5effe23ccd089218b8b2257ae2b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

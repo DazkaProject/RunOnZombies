@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Resurses/Sprites/Zombie/ZNoga.png" type="Texture" id=2]
+[ext_resource path="res://Resurses/Sprites/Zombie/NZombie.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Zombie.gd" type="Script" id=4]
+[ext_resource path="res://Resurses/Animation/Zombie/zRun.tres" type="Animation" id=6]
+[ext_resource path="res://Resurses/Particles/RunPart.tscn" type="PackedScene" id=7]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 63.0
+height = 156.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 101.0
+height = 86.0
+
+[node name="Zombie" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 10
+script = ExtResource( 4 )
+speed = 50.0
+
+[node name="RunPart" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, 150 )
+
+[node name="ZNoga2" type="Sprite" parent="."]
+position = Vector2( 45, 135 )
+rotation = -0.261799
+texture = ExtResource( 2 )
+
+[node name="ZNoga" type="Sprite" parent="."]
+position = Vector2( -30, 135 )
+rotation = 0.261799
+texture = ExtResource( 2 )
+
+[node name="Zombie" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 2, 20 )
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( -2.5235, -54.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2( 3.5235, 73.5 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/zRun = ExtResource( 6 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

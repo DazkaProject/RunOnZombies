@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/vsruv.mp3-95d9443f63a9e58800d2f4217f4b97b9.mp3str"
+
+[deps]
+
+source_file="res://Resurses/Sounds/vsruv.mp3"
+dest_files=[ "res://.import/vsruv.mp3-95d9443f63a9e58800d2f4217f4b97b9.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

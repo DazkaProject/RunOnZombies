@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="RunPart" type="CPUParticles2D"]
+emitting = false
+amount = 15
+lifetime = 5.0
+speed_scale = 2.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_rect_extents = Vector2( 1, 1 )
+gravity = Vector2( -98, 0 )
+angular_velocity = 720.0
+radial_accel = 16.51
+tangential_accel = 16.51
+damping = 10.09
+scale_amount = 4.0
+color = Color( 0.403922, 0.403922, 0.403922, 1 )

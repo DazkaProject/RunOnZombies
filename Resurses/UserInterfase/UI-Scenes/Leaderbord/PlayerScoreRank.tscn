@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resurses/UserInterfase/Defult_theme.tres" type="Theme" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends HBoxContainer
+
+
+var rank = 10
+var Pname = \"Jopa\"
+var score = 100
+
+func _ready():
+	$Rank.text = str(rank)
+	$Name.text = Pname
+	$Score.text = str(score)
+"
+
+[node name="PlayerScoreRank" type="HBoxContainer"]
+margin_right = 451.0
+margin_bottom = 27.0
+theme = ExtResource( 1 )
+alignment = 1
+script = SubResource( 1 )
+
+[node name="Rank" type="Label" parent="."]
+margin_left = 76.0
+margin_right = 102.0
+margin_bottom = 27.0
+text = "10"
+align = 1
+valign = 1
+
+[node name="Name" type="Label" parent="."]
+margin_left = 202.0
+margin_right = 261.0
+margin_bottom = 27.0
+text = "Name"
+align = 1
+valign = 1
+
+[node name="Score" type="Label" parent="."]
+margin_left = 361.0
+margin_right = 374.0
+margin_bottom = 27.0
+text = "0"
+align = 1
+valign = 1

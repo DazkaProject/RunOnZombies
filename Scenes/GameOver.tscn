@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Resurses/UserInterfase/Defult_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Resurses/UserInterfase/Shrifts/Big_Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Resurses/UserInterfase/UI-Sprites/Back.png" type="Texture" id=3]
+[ext_resource path="res://Resurses/UserInterfase/UI-Sprites/Restart.png" type="Texture" id=4]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Control
+
+
+func _on_Restart_pressed():
+	CS.ChangeScene(\"Game\")
+	$Panel/Restart/Restart.hide()
+
+
+func _on_Restart_mouse_entered():
+	$Panel/Restart/Restart.show()
+
+
+func _on_Restart_mouse_exited():
+	$Panel/Restart/Restart.hide()
+
+
+func _on_Back_pressed():
+	CS.ChangeScene(\"Menu\")
+	$Panel/Back/Back.hide()
+
+
+func _on_Back_mouse_entered():
+	$Panel/Back/Back.show()
+
+
+func _on_Back_mouse_exited():
+	$Panel/Back/Back.hide()
+"
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 2 )
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = SubResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -122.5
+margin_top = -114.0
+margin_right = 128.5
+margin_bottom = -50.0
+theme = SubResource( 1 )
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="Restart" type="TextureButton" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 18.0
+margin_top = -55.0
+margin_right = 141.0
+margin_bottom = 68.0
+texture_normal = ExtResource( 4 )
+
+[node name="Restart" type="Label" parent="Panel/Restart"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -48.5
+margin_top = -27.0
+margin_right = 48.5
+text = "Restart"
+
+[node name="Back" type="TextureButton" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -132.0
+margin_top = -56.0
+margin_right = -9.0
+margin_bottom = 67.0
+texture_normal = ExtResource( 3 )
+
+[node name="Back" type="Label" parent="Panel/Back"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -70.5
+margin_top = -27.0
+margin_right = 70.5
+text = "Go to menu"
+
+[connection signal="mouse_entered" from="Panel/Restart" to="." method="_on_Restart_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/Restart" to="." method="_on_Restart_mouse_exited"]
+[connection signal="pressed" from="Panel/Restart" to="." method="_on_Restart_pressed"]
+[connection signal="mouse_entered" from="Panel/Back" to="." method="_on_Back_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/Back" to="." method="_on_Back_mouse_exited"]
+[connection signal="pressed" from="Panel/Back" to="." method="_on_Back_pressed"]
